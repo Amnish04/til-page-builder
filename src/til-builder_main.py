@@ -3,7 +3,7 @@ from utils.helper_functions import has_txt_extension
 from utils.commandline import cl_args
 from version import __version__, __name__
 
-from builder.html_builder import generate_html_for_file
+from builder.html_builder import generate_html_for_file, generate_files
 
 # Global variables
 OUTPUT_PATH = cl_args.output
@@ -30,16 +30,19 @@ def main():
                                          os.path.isfile(file_path) and has_txt_extension(file_path), 
                                          list(map(lambda file_path: str(file_path.absolute()).replace('\\', '/'), 
                                                   list(directory.rglob('*'))))))
-        print(files_in_directory)
-    
+        # print(files_in_directory)
+        files_to_be_generated = []
+
         for file in files_in_directory:
-            generate_html_for_file(file)
+            files_to_be_generated.append(generate_html_for_file(file))
+
+        generate_files(files_to_be_generated)
 
     elif os.path.isfile(input_path):
         # Check if a text file is supplied
         if has_txt_extension(input_path):
-
             generate_html_for_file(input_path)
+            generate_files()
         else:
             print(f"Only text files are supported. {input_path} is not a text file!")
     else:
