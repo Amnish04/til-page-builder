@@ -16,6 +16,9 @@ def main():
 
     # Execute parse functions
     input_path = cl_args.input_path
+    if input_path is None:
+        print("You need to specify a file or folder of text files that need to be converted!")
+        return
 
     # Check if the pathname is a directory
     if os.path.isdir(input_path):
