@@ -43,14 +43,18 @@ def generate_html_for_file(file_path):
 
                 # Continue with the remaining content
                 while line_cursor_position < len(lines):
-                    with tag('p'):
-                        paragraph_content = ""
-                        while line_cursor_position < len(lines) and lines[line_cursor_position] != '\n':
-                            paragraph_content += lines[line_cursor_position]
-                            line_cursor_position += 1
-                            
-                        text(paragraph_content.replace("\n", " ").strip())
+                    paragraph_content = ""
+                    while line_cursor_position < len(lines) and lines[line_cursor_position] != '\n':
+                        paragraph_content += lines[line_cursor_position]
                         line_cursor_position += 1
+                        
+                    paragraph_content = paragraph_content.replace("\n", " ").strip()
+                    line_cursor_position += 1
+
+                    if len(paragraph_content) > 1:
+                        # Only add the paragraph tag if there is some content
+                        with tag('p'):
+                            text(paragraph_content)
 
     # print(indentation.indent(doc.getvalue()))
     file_content = indentation.indent(doc.getvalue())
