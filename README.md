@@ -1,6 +1,13 @@
-# til-page-builder 👷
+# til-page-builder
 
 A command-line tool for authoring "Today I Learned" posts in Markdown, which can be converted to HTML for publishing on the web.
+
+<div align="center" style="width: 100%">
+  <div style="display: flex; align-items: flex-start; justify-content: space-around;">
+    <img width="150" src="./assets/bob_the_builder.png" alt="Bob the builder image">
+    <img width="225" src="./assets/til_to_html.png" alt="TIL to HTML image">
+  </div>
+</div>
 
 ## Requirements 💻
 
@@ -89,3 +96,8 @@ For example, in order to generate the html files in a directory `./dist/html_fil
 ```
 python til-page_builder_main.py --output ./dist/html_files
 ```
+
+## License
+
+[MIT](https://github.com/Amnish04/til-page-builder/blob/master/LICENSE)
+
