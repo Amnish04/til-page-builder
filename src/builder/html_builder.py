@@ -44,11 +44,14 @@ def generate_html_for_file(file_path):
                 # Continue with the remaining content
                 while line_cursor_position < len(lines):
                     paragraph_content = ""
+
+                    # Club paragraph content
                     while line_cursor_position < len(lines) and lines[line_cursor_position] != '\n':
                         paragraph_content += lines[line_cursor_position]
                         line_cursor_position += 1
-                        
-                    paragraph_content = paragraph_content.replace("\n", " ").strip()
+                    
+                    # Neutralize extra spaces/newlines from content
+                    paragraph_content = paragraph_content.replace("\n", "").strip()
                     line_cursor_position += 1
 
                     if len(paragraph_content) > 1:

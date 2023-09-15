@@ -41,8 +41,7 @@ def main():
     elif os.path.isfile(input_path):
         # Check if a text file is supplied
         if has_txt_extension(input_path):
-            generate_html_for_file(input_path)
-            generate_files()
+            generate_files([generate_html_for_file(input_path)])
         else:
             print(f"Only text files are supported. {input_path} is not a text file!")
     else:
