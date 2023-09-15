@@ -2,7 +2,9 @@ import os
 import shutil
 from yattag import Doc, indentation
 from utils.commandline import cl_args
-from models.file import File 
+from models.file import File
+
+import builder.line_queries as line_queries
 
 # Global variables
 OUTPUT_PATH = cl_args.output # Output directory for files
@@ -55,9 +57,30 @@ def generate_html_for_file(file_path):
                     line_cursor_position += 1
 
                     if len(paragraph_content) > 1:
-                        # Only add the paragraph tag if there is some content
-                        with tag('p'):
-                            text(paragraph_content)
+                        # Only add a tag if there is some content
+
+                        # Check if the content is supposed to be a heading or a normal paragraph
+                        if line_queries.is_h1(paragraph_content):
+                            with tag('h1'):
+                                text(paragraph_content.replace(line_queries.H1_TOKEN, ""))
+                        elif line_queries.is_h2(paragraph_content):
+                            with tag('h2'):
+                                text(paragraph_content.replace(line_queries.H2_TOKEN, ""))
+                        elif line_queries.is_h3(paragraph_content):
+                            with tag('h3'):
+                                text(paragraph_content.replace(line_queries.H3_TOKEN, ""))
+                        elif line_queries.is_h4(paragraph_content):
+                            with tag('h4'):
+                                text(paragraph_content.replace(line_queries.H4_TOKEN, ""))
+                        elif line_queries.is_h5(paragraph_content):
+                            with tag('h5'):
+                                text(paragraph_content.replace(line_queries.H5_TOKEN, ""))
+                        elif line_queries.is_h6(paragraph_content):
+                            with tag('h6'):
+                                text(paragraph_content.replace(line_queries.H6_TOKEN, ""))
+                        else: 
+                            with tag('p'):
+                                text(paragraph_content)
 
     # print(indentation.indent(doc.getvalue()))
     file_content = indentation.indent(doc.getvalue())
