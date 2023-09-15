@@ -13,7 +13,7 @@ parser.add_argument(
     'input_path',
     default=None,
     nargs='?',
-    help="Sets the output directory for generated html files to the specified path. By default, it is './til'"
+    help="The path to a text file or a folder containing files to be converted to corresponding html file(s)"
 )
 
 # Output directory
@@ -21,7 +21,7 @@ parser.add_argument(
     '-o', '--output',
     default="./til",
     type=str,
-    help="Sets the output directory for generated html files to the specified path. By default, it is './til'"
+    help="Generates the html files in the provided directory, by default it is './til'"
 )
 
 # Display project version
