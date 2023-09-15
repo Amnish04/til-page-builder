@@ -44,12 +44,18 @@ def generate_html_for_file(file_path):
                 # Continue with the remaining content
                 while line_cursor_position < len(lines):
                     with tag('p'):
-                        text(lines[line_cursor_position].replace("\n", ""))
+                        paragraph_content = ""
+                        while line_cursor_position < len(lines) and lines[line_cursor_position] != '\n':
+                            paragraph_content += lines[line_cursor_position]
+                            line_cursor_position += 1
+                            
+                        text(paragraph_content.replace("\n", " ").strip())
                         line_cursor_position += 1
 
-    print(indentation.indent(doc.getvalue()))
+    # print(indentation.indent(doc.getvalue()))
     file_content = indentation.indent(doc.getvalue())
     gen_file_path = f"{OUTPUT_PATH}/{os.path.basename(file_path)}"
+
     return File(gen_file_path, file_content)
 
 def is_title_present(lines):
@@ -67,5 +73,6 @@ def generate_files(files_to_be_generated):
     # Generate the output directory
     os.makedirs(OUTPUT_PATH, exist_ok=True)
 
+    # Generate an html file for each text file
     for file in files_to_be_generated:
         file.generate_html_file()

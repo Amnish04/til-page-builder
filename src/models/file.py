@@ -1,3 +1,4 @@
+# A virtual representation of the file to be generated
 class File:
     def __init__(self, file_path, file_content):
         self.file_path = file_path
