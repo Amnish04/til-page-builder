@@ -1,0 +1,11 @@
+TIL Argparse
+
+
+While developing this commandline tool for release 0.1, I learned about a very useful in-built library in python called argparse that makes working with commandline arguments extremely easy.
+
+## How to use
+😉
+
+Its very simple to configure and start using this library.
+
+All you need to do is create an ArgumentParser object, and define the arguments and their behavior with various annotations.
