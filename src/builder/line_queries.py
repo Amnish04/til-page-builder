@@ -11,9 +11,11 @@ H6_TOKEN = "###### "
 # Functions
 
 def is_h1(line):
+    print("h1 Detected")
     return line.startswith(H1_TOKEN)
 
 def is_h2(line):
+    print("h2 Detected")
     return line.startswith(H2_TOKEN)
 
 def is_h3(line):

@@ -1,11 +1,13 @@
 import os
 import shutil
+import re
 from yattag import Doc, indentation
 from utils.commandline import cl_args
 from models.file import File
 
 import builder.line_queries as line_queries
 import builder.markdown_parser as markdown_parser
+from utils.helper_functions import has_txt_extension, has_md_extension
 
 # Global variables
 OUTPUT_PATH = cl_args.output # Output directory for files
@@ -61,30 +63,60 @@ def generate_html_for_file(file_path):
                     if len(paragraph_content) > 1:
                         # Only add a tag if there is some content
 
-                        # Check if the content is supposed to be a heading or a normal paragraph
-                        if line_queries.is_h1(paragraph_content):
-                            with tag('h1'):
-                                text(paragraph_content.replace(line_queries.H1_TOKEN, ""))
-                        elif line_queries.is_h2(paragraph_content):
-                            with tag('h2'):
-                                text(paragraph_content.replace(line_queries.H2_TOKEN, ""))
-                        elif line_queries.is_h3(paragraph_content):
-                            with tag('h3'):
-                                text(paragraph_content.replace(line_queries.H3_TOKEN, ""))
-                        elif line_queries.is_h4(paragraph_content):
-                            with tag('h4'):
-                                text(paragraph_content.replace(line_queries.H4_TOKEN, ""))
-                        elif line_queries.is_h5(paragraph_content):
-                            with tag('h5'):
-                                text(paragraph_content.replace(line_queries.H5_TOKEN, ""))
-                        elif line_queries.is_h6(paragraph_content):
-                            with tag('h6'):
-                                text(paragraph_content.replace(line_queries.H6_TOKEN, ""))
-                        else: 
-                            with tag('p'):
-                                text(paragraph_content)
+                        #Check file type for conversion
+                        # If file type is .md 
+                        if has_md_extension(file_path):
+                            paragraph=False
+                            for line in lines:
+                                if line.strip() == "":
+                                    if paragraph:
+                                        paragraph_content += "</p>\n"
+                                        paragraph = False
+                                else:
+                                    if not paragraph:
+                                        paragraph_content += "<p>"
+                                        paragraph = True
+
+                                    line = re.sub(r'\*\*(.*?)\*\*', r'<strong>\1</strong>', line)
+                                    line = re.sub(r'(\*|_)(.*?)\1', r'<em>\2</em>', line)
+                                    line = re.sub(r'^# (.+)$', r'<h1>\1</h1>', line)
+                                    line = re.sub(r'^## (.+)$', r'<h2>\1</h2>', line)
+
+                                    paragraph_content += line.strip() + "\n"
+
+                            if paragraph:
+                                paragraph_content += "</p>\n"
+                            
+                            paragraph_content += f"</body>\n</html>"    
+                        # Else If file type is .txt
+                        else:
+                            # Check if the content is supposed to be a heading or a normal paragraph
+                            if line_queries.is_h1(paragraph_content):
+                                with tag('h1'):
+                                    text(paragraph_content.replace(line_queries.H1_TOKEN, ""))
+                            elif line_queries.is_h2(paragraph_content):
+                                with tag('h2'):
+                                    text(paragraph_content.replace(line_queries.H2_TOKEN, ""))
+                            elif line_queries.is_h3(paragraph_content):
+                                with tag('h3'):
+                                    text(paragraph_content.replace(line_queries.H3_TOKEN, ""))
+                            elif line_queries.is_h4(paragraph_content):
+                                with tag('h4'):
+                                    text(paragraph_content.replace(line_queries.H4_TOKEN, ""))
+                            elif line_queries.is_h5(paragraph_content):
+                                with tag('h5'):
+                                    text(paragraph_content.replace(line_queries.H5_TOKEN, ""))
+                            elif line_queries.is_h6(paragraph_content):
+                                with tag('h6'):
+                                    text(paragraph_content.replace(line_queries.H6_TOKEN, ""))
+                            else: 
+                                with tag('p'):
+                                    text(paragraph_content)
 
     # print(indentation.indent(doc.getvalue()))
+    with tag('body'):
+        text(paragraph_content)
+        print(f'{paragraph_content}')
     file_content = indentation.indent(doc.getvalue())
     gen_file_path = f"{OUTPUT_PATH}/{os.path.basename(file_path)}"
 
