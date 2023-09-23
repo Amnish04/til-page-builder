@@ -1,3 +1,4 @@
+import re
 import os
 import shutil
 from yattag import Doc, indentation
@@ -7,3 +8,5 @@ from models.file import File
 import builder.line_queries as line_queries
 
 def generate_markdown(file_path):
+    
+    return

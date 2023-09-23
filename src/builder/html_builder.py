@@ -5,12 +5,14 @@ from utils.commandline import cl_args
 from models.file import File
 
 import builder.line_queries as line_queries
+import builder.markdown_parser as markdown_parser
 
 # Global variables
 OUTPUT_PATH = cl_args.output # Output directory for files
 FILES_TO_BE_GENERATED = []   # A list of File objects
 
 def generate_html_for_file(file_path):
+    print(f"got here {file_path}")
     with open(file_path, "r") as file:
         # Create the html virtual document
         doc, tag, text = Doc().tagtext()
@@ -106,6 +108,7 @@ def generate_files(files_to_be_generated):
 
     # Generate an html file for each text file
     for file in files_to_be_generated:
+        print("then here")
         file.generate_html_file()
 
 def neutralize_newline_character(line):
