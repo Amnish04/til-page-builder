@@ -6,7 +6,10 @@ class File:
 
     # Write the file to the disk based on path and content
     def generate_html_file(self):
-        write_path = self.file_path.replace(".txt", ".html")
+        if self.file_path.endswith(".md"):
+            write_path = self.file_path.replace(".md", ".html")    
+        else:
+            write_path = self.file_path.replace(".txt", ".html")
 
         with open(write_path, "w") as file:
             file.write(self.file_content)
