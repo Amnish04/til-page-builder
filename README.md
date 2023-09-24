@@ -101,7 +101,7 @@ options:
 
 For example, in order to generate the html files in a directory `./dist/html_files`
 ```
-python til-page_builder_main.py --output ./dist/html_files
+python til-builder_main.py --output ./dist/html_files
 ```
 
 ## License
