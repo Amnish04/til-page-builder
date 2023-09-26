@@ -87,7 +87,9 @@ def generate_html_for_file(file_path):
                                     paragraph_content = re.sub(r'\*\*(.*?)\*\*', r'<strong>\1</strong>', paragraph_content)
                                     # Use regEx to replace markdown italic format (* * or _ _) with html <em> </em> tags                              
                                     paragraph_content = re.sub(r'(\*|_)(.*?)\1', r'<em>\2</em>', paragraph_content)
-                                doc.asis(paragraph_content)
+                                    doc.asis(paragraph_content)
+                                else:
+                                    text(paragraph_content)
 
     # print(indentation.indent(doc.getvalue()))
     file_content = indentation.indent(doc.getvalue())
