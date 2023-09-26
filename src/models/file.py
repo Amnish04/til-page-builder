@@ -8,7 +8,6 @@ class File:
     # Write the file to the disk based on path and content
     def generate_html_file(self):
         write_path = self.file_path.replace(f'{os.path.splitext(self.file_path)[1]}', '.html')
-        print(f'{write_path}')
 
         with open(write_path, "w") as file:
             file.write(self.file_content)
