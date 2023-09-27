@@ -30,11 +30,15 @@ pip install -r requirements.txt
 ```
 
 ## Features
+Converts **text** or **markdown** files to **html** files that can be rendered as web pages.
 
-* Converts **text** or **markdown** files to **html** files that can be rendered as web pages.
+### Common features
 * Parses the first line as **web page title** and top level heading if followed by 2 empty newlines.
 * Parses all **text blocks**, delimeted by an empty line, as **`p` tags** for the html.
 * Parses **headings** just like github markdown. For example, a line starting with `# ` translates to an `h1`,  `## ` to and `h2`, and so on...
+
+### Exclusive to markdown
+* Any piece of text wrapped with `**` is converted to `strong` tag (bolded) in html, and wrapped with `*` is converted to `em` tag (italicized).
 
 ## Usage
 
@@ -103,6 +107,22 @@ For example, in order to generate the html files in a directory `./dist/html_fil
 ```
 python til-builder_main.py --output ./dist/html_files
 ```
+
+## Example
+
+This example demonstrates the app behavior for a `markdown` file.
+
+For the following _markdown_ file:
+![TIL Markdown](https://github.com/Amnish04/til-page-builder/assets/78865303/4096711c-caf5-49f4-aac0-8b8ce2e56647)
+
+Run the command for conversion.
+```
+python src/til-builder_main.py examples/til-yattag.md
+```
+
+**Generated HTML**
+![Sample generated TIL](https://github.com/Amnish04/til-page-builder/assets/78865303/9ccbdb5c-f2f9-40dd-959b-b906a9fb2bc4)
+
 
 ## License
 
