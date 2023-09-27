@@ -1,16 +1,19 @@
 import os
 import shutil
+import re
 from yattag import Doc, indentation
 from utils.commandline import cl_args
 from models.file import File
 
 import builder.line_queries as line_queries
+from utils.helper_functions import has_txt_extension, has_md_extension
 
 # Global variables
 OUTPUT_PATH = cl_args.output # Output directory for files
 FILES_TO_BE_GENERATED = []   # A list of File objects
 
 def generate_html_for_file(file_path):
+
     with open(file_path, "r") as file:
         # Create the html virtual document
         doc, tag, text = Doc().tagtext()
@@ -58,7 +61,6 @@ def generate_html_for_file(file_path):
 
                     if len(paragraph_content) > 1:
                         # Only add a tag if there is some content
-
                         # Check if the content is supposed to be a heading or a normal paragraph
                         if line_queries.is_h1(paragraph_content):
                             with tag('h1'):
@@ -79,8 +81,15 @@ def generate_html_for_file(file_path):
                             with tag('h6'):
                                 text(paragraph_content.replace(line_queries.H6_TOKEN, ""))
                         else: 
-                            with tag('p'):
-                                text(paragraph_content)
+                            with tag('p'):   
+                                if has_md_extension(file_path):   
+                                    # Use regEx to replace markdown bold format (** **) with html <strong> </strong> tags                              
+                                    paragraph_content = re.sub(r'\*\*(.*?)\*\*', r'<strong>\1</strong>', paragraph_content)
+                                    # Use regEx to replace markdown italic format (* * or _ _) with html <em> </em> tags                              
+                                    paragraph_content = re.sub(r'(\*|_)(.*?)\1', r'<em>\2</em>', paragraph_content)
+                                    doc.asis(paragraph_content)
+                                else:
+                                    text(paragraph_content)
 
     # print(indentation.indent(doc.getvalue()))
     file_content = indentation.indent(doc.getvalue())
@@ -99,7 +108,6 @@ def generate_files(files_to_be_generated):
     if os.path.isdir(OUTPUT_PATH):
         # Delete the folder structure
         shutil.rmtree(OUTPUT_PATH)
-
 
     # Generate the output directory
     os.makedirs(OUTPUT_PATH, exist_ok=True)

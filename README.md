@@ -31,7 +31,7 @@ pip install -r requirements.txt
 
 ## Features
 
-* Converts **text** files to **html** files that can be rendered as web pages.
+* Converts **text** or **markdown** files to **html** files that can be rendered as web pages.
 * Parses the first line as **web page title** and top level heading if followed by 2 empty newlines.
 * Parses all **text blocks**, delimeted by an empty line, as **`p` tags** for the html.
 * Parses **headings** just like github markdown. For example, a line starting with `# ` translates to an `h1`,  `## ` to and `h2`, and so on...

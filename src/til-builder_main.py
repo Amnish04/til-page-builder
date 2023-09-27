@@ -1,5 +1,5 @@
 import os, pathlib
-from utils.helper_functions import has_txt_extension
+from utils.helper_functions import has_txt_extension, has_md_extension
 from utils.commandline import cl_args
 from version import __version__, __name__
 
@@ -27,7 +27,7 @@ def main():
 
         # Use the rglob() method to get a list of all files in the directory and its subdirectories
         files_in_directory = list(filter(lambda file_path: 
-                                         os.path.isfile(file_path) and has_txt_extension(file_path), 
+                                         os.path.isfile(file_path) and has_txt_extension(file_path) or has_md_extension(file_path), 
                                          list(map(lambda file_path: str(file_path.absolute()).replace('\\', '/'), 
                                                   list(directory.rglob('*'))))))
         # print(files_in_directory)
@@ -40,10 +40,10 @@ def main():
 
     elif os.path.isfile(input_path):
         # Check if a text file is supplied
-        if has_txt_extension(input_path):
+        if has_txt_extension(input_path) or has_md_extension(input_path):
             generate_files([generate_html_for_file(input_path)])
         else:
-            print(f"Only text files are supported. {input_path} is not a text file!")
+            print(f"Only text and markdown files are supported. {input_path} is not a text or markdown file!")
     else:
         print(f"'{input_path}' does not exist or is neither a file nor a directory.")
 
