@@ -76,7 +76,7 @@ python  .\src\til-builder_main.py --version
 Output:
 
 ```
-TIL Page Builder: 0.0.1
+TIL Page Builder: 0.1.0
 ```
 
 2. `-h` or `--help` : Displays a help message that describes usage of all kinds of commandline arguments supported.
