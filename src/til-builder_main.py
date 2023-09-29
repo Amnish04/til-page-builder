@@ -1,7 +1,8 @@
-import os, pathlib
+import os
+import pathlib
 from utils.helper_functions import has_txt_extension, has_md_extension
 from utils.commandline import cl_args
-from version import __version__, __name__
+import version
 
 from builder.html_builder import generate_html_for_file, generate_files
 
@@ -9,9 +10,11 @@ from builder.html_builder import generate_html_for_file, generate_files
 OUTPUT_PATH = cl_args.output
 
 def main():
+    """Entry point for the app"""
+
     # Check for exit commands (Return if any branch is entered)
     if cl_args.version:
-        print(f"{__name__}: {__version__}")
+        print(f"{version.__name__}: {version.__version__}")
         return
 
     # Execute parse functions
@@ -48,4 +51,5 @@ def main():
         print(f"'{input_path}' does not exist or is neither a file nor a directory.")
 
 
-main()
+if __name__ == "__main__":
+    main()

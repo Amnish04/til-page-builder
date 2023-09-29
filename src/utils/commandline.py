@@ -24,6 +24,14 @@ parser.add_argument(
     help="Generates the html files in the provided directory, by default it is './til'"
 )
 
+# Lang attribute
+parser.add_argument(
+    '-l', '--lang',
+    default="en-CA",
+    type=str,
+    help="Indicates the language to use when generating the lang attribute on the root element"
+)
+
 # Display project version
 parser.add_argument(
     '-v', '--version',

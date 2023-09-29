@@ -10,6 +10,7 @@ from utils.helper_functions import has_txt_extension, has_md_extension
 
 # Global variables
 OUTPUT_PATH = cl_args.output # Output directory for files
+DOCUMENT_LANG = cl_args.lang # Language used for the document
 FILES_TO_BE_GENERATED = []   # A list of File objects
 
 def generate_html_for_file(file_path):
@@ -31,7 +32,7 @@ def generate_html_for_file(file_path):
 
         # HTML template
         doc.asis('<!DOCTYPE html>')
-        with tag('html', lang='en'):
+        with tag('html', lang=DOCUMENT_LANG):
             with tag('head'):
                 doc.stag('meta', charset="utf-8")
                 with tag('title'):
