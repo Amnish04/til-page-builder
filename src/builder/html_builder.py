@@ -92,7 +92,6 @@ def generate_html_for_file(file_path):
                                 else:
                                     text(paragraph_content)
 
-    # print(indentation.indent(doc.getvalue()))
     file_content = indentation.indent(doc.getvalue())
     gen_file_path = f"{OUTPUT_PATH}/{os.path.basename(file_path)}"
 
