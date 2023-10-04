@@ -1,12 +1,11 @@
 import os
 import shutil
-import re
 from yattag import Doc, indentation
 from utils.commandline import cl_args
 from models.file import File
 
-import builder.line_queries as line_queries
 from utils.helper_functions import has_txt_extension, has_md_extension
+from builder.markdown_processor import process_text_block_for_markdown
 
 # Global variables
 OUTPUT_PATH = cl_args.output # Output directory for files
@@ -17,7 +16,9 @@ def generate_html_for_file(file_path):
 
     with open(file_path, "r") as file:
         # Create the html virtual document
-        doc, tag, text = Doc().tagtext()
+        virtual_doc = Doc().tagtext()
+        doc, tag, text = virtual_doc
+
         lines = file.readlines()
         line_cursor_position = 0
 
@@ -25,7 +26,6 @@ def generate_html_for_file(file_path):
         if is_title_present(lines):
             # The current line is the title
             page_title = lines[line_cursor_position]
-            line_cursor_position += 3
         else:
             # Set filename as the title
             page_title = os.path.basename(file_path)
@@ -43,54 +43,33 @@ def generate_html_for_file(file_path):
                 # File content here
 
                 # Add an h1 if the title is present
-                if is_title_present(lines):
+                if has_txt_extension(file_path) and is_title_present(lines):
                     with tag('h1'):
                         text(neutralize_newline_character(page_title))
+                        line_cursor_position += 3
 
                 # Continue with the remaining content
                 while line_cursor_position < len(lines):
-                    paragraph_content = ""
+                    text_block = ""
 
                     # Club paragraph content
                     while line_cursor_position < len(lines) and lines[line_cursor_position] != '\n':
-                        paragraph_content += lines[line_cursor_position]
+                        text_block += lines[line_cursor_position]
                         line_cursor_position += 1
                     
                     # Neutralize extra spaces/newlines from content
-                    paragraph_content = neutralize_newline_character(paragraph_content).strip()
+                    text_block = neutralize_newline_character(text_block).strip()
                     line_cursor_position += 1
 
-                    if len(paragraph_content) > 1:
-                        # Only add a tag if there is some content
-                        # Check if the content is supposed to be a heading or a normal paragraph
-                        if line_queries.is_h1(paragraph_content):
-                            with tag('h1'):
-                                text(paragraph_content.replace(line_queries.H1_TOKEN, ""))
-                        elif line_queries.is_h2(paragraph_content):
-                            with tag('h2'):
-                                text(paragraph_content.replace(line_queries.H2_TOKEN, ""))
-                        elif line_queries.is_h3(paragraph_content):
-                            with tag('h3'):
-                                text(paragraph_content.replace(line_queries.H3_TOKEN, ""))
-                        elif line_queries.is_h4(paragraph_content):
-                            with tag('h4'):
-                                text(paragraph_content.replace(line_queries.H4_TOKEN, ""))
-                        elif line_queries.is_h5(paragraph_content):
-                            with tag('h5'):
-                                text(paragraph_content.replace(line_queries.H5_TOKEN, ""))
-                        elif line_queries.is_h6(paragraph_content):
-                            with tag('h6'):
-                                text(paragraph_content.replace(line_queries.H6_TOKEN, ""))
-                        else: 
-                            with tag('p'):   
-                                if has_md_extension(file_path):   
-                                    # Use regEx to replace markdown bold format (** **) with html <strong> </strong> tags                              
-                                    paragraph_content = re.sub(r'\*\*(.*?)\*\*', r'<strong>\1</strong>', paragraph_content)
-                                    # Use regEx to replace markdown italic format (* * or _ _) with html <em> </em> tags                              
-                                    paragraph_content = re.sub(r'(\*|_)(.*?)\1', r'<em>\2</em>', paragraph_content)
-                                    doc.asis(paragraph_content)
-                                else:
-                                    text(paragraph_content)
+                    if len(text_block) > 1:
+                        if has_md_extension(file_path):
+                            process_text_block_for_markdown(virtual_doc, text_block)
+                        else:
+                            # No additional processing for text files
+                            with tag('p'):
+                                text(text_block)
+
+                    
 
     file_content = indentation.indent(doc.getvalue())
     gen_file_path = f"{OUTPUT_PATH}/{os.path.basename(file_path)}"
