@@ -1,4 +1,5 @@
 import argparse
+import tomli
 
 # Create an ArgumentParser object
 parser = argparse.ArgumentParser(
@@ -7,6 +8,14 @@ parser = argparse.ArgumentParser(
                     )
 
 # Define arguments
+
+# Config file
+parser.add_argument(
+    '-c','--config',
+    metavar='config',
+    type=str,
+    help="Uses a provided config file to set properties of converted files"
+)
 
 # Input file or folder containing files
 parser.add_argument(
@@ -41,3 +50,17 @@ parser.add_argument(
 
 # Parse the command-line arguments
 cl_args = parser.parse_args()
+
+# Processing config file if provided
+
+if cl_args.config is not None:
+    with open(cl_args.config, 'rb') as config_file:     # Opening config file
+        try:
+            toml_vals = tomli.load(config_file)       # Loading configurations from TOML file
+        except tomli.TOMLDecodeError:
+            raise Exception("Error: Unable to decode configuration file contents")
+        except:
+            raise Exception("Error: Invalid configuration file")
+
+    for (key,value) in toml_vals.items():      
+        setattr(cl_args, key, value)       # Setting each attribute in arg namespace from tomli dictionary
