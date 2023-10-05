@@ -116,7 +116,7 @@ lang = "fr"
 ```
 `python til-builder_main.py myfile.txt --config config.toml`
 
-Will set the output directory and language of the HTML files  instead of having to use `--output` and `--lang`.
+Will set the output directory and language of the HTML files  instead of having to use `--output` and `--lang`. Using `-c` or `--config` will override any other config flags provided.
 
 
 
