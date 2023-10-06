@@ -107,14 +107,16 @@ For example, in order to generate the html files in a directory `./dist/html_fil
 ```
 python til-builder_main.py --output ./dist/html_files
 ```
-4. `-c` or `--config`: Allows specification of a [TOML](https://toml.io/en/) configuration file containing all required options for converted HTML files.
+4. `-c` or `--config`: Allows specification of a [TOML](https://toml.io/en/) configuration file containing all required options for the program.
 
 For example: Using a TOML file containing:
 ```TOML
 output = "./build"
 lang = "fr"
 ```
-`python til-builder_main.py myfile.txt --config config.toml`
+```
+python til-builder_main.py myfile.txt --config config.toml
+```
 
 Will set the output directory and language of the HTML files  instead of having to use `--output` and `--lang`. Using `-c` or `--config` will override any other config flags provided.
 
