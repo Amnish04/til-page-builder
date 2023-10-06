@@ -14,7 +14,7 @@ parser.add_argument(
     '-c','--config',
     metavar='config',
     type=str,
-    help="Uses a provided config file to set properties of converted files"
+    help="Uses a provided config file to set any valid options for the program."
 )
 
 # Input file or folder containing files
