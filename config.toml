@@ -1,2 +1,2 @@
-output = "./build"
+output = "./dist/til"
 lang = "fr"
