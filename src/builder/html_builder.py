@@ -8,15 +8,25 @@ from models.html_file import HtmlFile
 from utils.helper_functions import has_txt_extension, has_md_extension
 import builder.line_queries as line_queries
 
+from builder.toc_generator.index import TOC, HeadingItem
+
 class HtmlBuilder:
+    TOC_PLACEHOLDER = '<div id="toc-placeholder"></div>'
+
     def __init__(self):
         self._cl_args = CommandlineParser().get_args()
 
         self._output_path = self._cl_args.output # Output directory for files
         self._document_lang = self._cl_args.lang # Language used for the document
 
+        # TOC Object
+        self.toc = TOC()
+
 
     def generate_html_for_file(self, file_path):
+        # Start with a clean slate
+        self.reset()
+
         with open(file_path, "r") as file:
             # Create the html virtual document
             virtual_doc = Doc().tagtext()
@@ -35,7 +45,10 @@ class HtmlBuilder:
             # HTML template
             self.generate_document(virtual_doc, page_title, lines, file_path)
 
-        file_content = indentation.indent(doc.getvalue())
+        file_content = doc.getvalue() # Get the generated html string
+        file_content = file_content.replace(HtmlBuilder.TOC_PLACEHOLDER, self.toc.get_html()) # Replace TOC placeholder with actual TOC
+        file_content = indentation.indent(file_content) # Indent the html
+
         gen_file_path = f"{self._output_path}/{os.path.basename(file_path)}"
 
         return HtmlFile(gen_file_path, file_content)
@@ -54,6 +67,9 @@ class HtmlBuilder:
         for file in files_to_be_generated:
             file.generate_html_file()
 
+    def reset(self):
+        self.toc.clear()
+
 
     def generate_document(self, virtual_doc, page_title, lines, input_file_path):
         doc, tag, text = virtual_doc
@@ -68,13 +84,15 @@ class HtmlBuilder:
                 doc.stag('meta', name="viewport", content="width=device-width, initial-scale=1")
 
             with tag('body'):
-                # File content here
-
                 # Add an h1 if the title is present
                 if has_txt_extension(input_file_path) and self._is_title_present(lines):
                     with tag('h1'):
                         text(self._neutralize_newline_character(page_title))
                         line_cursor_position += 3
+
+                # Placeholder for TOC
+                with tag('div', id='toc-placeholder'):
+                    doc.asis()
 
                 # Continue with the remaining content
                 while line_cursor_position < len(lines):
@@ -105,6 +123,8 @@ class HtmlBuilder:
         :param text_block: Block of text to be processed
         """
         doc, tag, text = virtual_doc
+        plain_text_block = text_block
+
         # Move from inner to outer tags when processing
 
         # Inline elements
@@ -116,24 +136,41 @@ class HtmlBuilder:
         text_block = re.sub(r'(\*|_)(.*?)\1', r'<em>\2</em>', text_block)
 
         # Block level elements
-        if line_queries.is_h1(text_block):
-            with tag('h1'):
-                doc.asis(text_block.replace(line_queries.H1_TOKEN, ""))
+        if line_queries.is_h1(text_block, ):
+            formatted_block = text_block.replace(line_queries.H1_TOKEN, "")
+
+            with tag('h1', id=HeadingItem.generate_heading_id(formatted_block)):
+                doc.asis(formatted_block)
         elif line_queries.is_h2(text_block):
-            with tag('h2'):
-                doc.asis(text_block.replace(line_queries.H2_TOKEN, ""))
+            formatted_block = text_block.replace(line_queries.H2_TOKEN, "")
+
+            with tag('h2', id=HeadingItem.generate_heading_id(formatted_block)):
+                doc.asis(formatted_block)
+                self.toc.add_item(HeadingItem(formatted_block))
         elif line_queries.is_h3(text_block):
-            with tag('h3'):
-                doc.asis(text_block.replace(line_queries.H3_TOKEN, ""))
+            formatted_block = text_block.replace(line_queries.H3_TOKEN, "")
+
+            with tag('h3', id=HeadingItem.generate_heading_id(formatted_block)):
+                doc.asis(formatted_block)
+                self.toc.add_item(HeadingItem(formatted_block))
         elif line_queries.is_h4(text_block):
-            with tag('h4'):
-                doc.asis(text_block.replace(line_queries.H4_TOKEN, ""))
+            formatted_block = text_block.replace(line_queries.H4_TOKEN, "")
+
+            with tag('h4', id=HeadingItem.generate_heading_id(formatted_block)):
+                doc.asis(formatted_block)
+                self.toc.add_item(HeadingItem(formatted_block))
         elif line_queries.is_h5(text_block):
-            with tag('h5'):
-                doc.asis(text_block.replace(line_queries.H5_TOKEN, ""))
+            formatted_block = text_block.replace(line_queries.H5_TOKEN, "")
+
+            with tag('h5', id=HeadingItem.generate_heading_id(formatted_block)):
+                doc.asis(formatted_block)
+                self.toc.add_item(HeadingItem(formatted_block))
         elif line_queries.is_h6(text_block):
-            with tag('h6'):
-                doc.asis(text_block.replace(line_queries.H6_TOKEN, ""))
+            formatted_block = text_block.replace(line_queries.H6_TOKEN, "")
+
+            with tag('h6', id=HeadingItem.generate_heading_id(formatted_block)):
+                doc.asis(formatted_block)
+                self.toc.add_item(HeadingItem(formatted_block))
         else:
             with tag('p'):
                 doc.asis(text_block)
