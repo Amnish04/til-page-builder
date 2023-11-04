@@ -1,8 +1,16 @@
+"""This module defined HeadingItem class"""
+
 from typing import List
 import hashlib
 
+
 class HeadingItem:
-    def __init__(self, value: str, children: List['HeadingItem'] = []):
+    """Represents a heading item in a TOC (Table of contents)"""
+
+    # Class Variables
+    CHILDREN_DEFAULT_VALUE = []
+
+    def __init__(self, value: str, children: List["HeadingItem"] = None):
         """Constructor
 
         :param id: id of the corresponding html element
@@ -11,7 +19,9 @@ class HeadingItem:
         """
         self.id = HeadingItem.generate_heading_id(value)
         self.value = value
-        self.children = children
+        self.children = (
+            HeadingItem.CHILDREN_DEFAULT_VALUE if children is None else children
+        )
 
     @staticmethod
     def generate_heading_id(text_content: str):
@@ -28,11 +38,10 @@ class HeadingItem:
 
         # Get the hexadecimal representation of the hash
         return sha512_hash.hexdigest()
-    
+
     def get_html(self) -> str:
         return f"""
             <li>
                 <a href='#{self.id}'>{self.value}</a>
             </li>
             """
-    
