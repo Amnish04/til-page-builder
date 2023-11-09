@@ -73,6 +73,13 @@ class CommandlineParser:
             help="Show the name and version of the project",
         )  # on/off flag
 
+        # Display project version
+        self._parser.add_argument(
+            "-d",
+            "--cov",
+            help="Dummy argument to allow for pytest coverage",
+        )  # on/off flag
+
         # Parse the command-line arguments
         self._cl_args = self._parser.parse_args()
 

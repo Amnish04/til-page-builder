@@ -259,9 +259,95 @@ Please adhere to the following guidelines when using Pylint:
 
 If you're using VSCode, all you need to do is install the official `pylint` extension by Microsoft. All the necessary configurations are already set up in the project workspace settings.
 
-<!-- ### Commit Messages -->
-<!-- TODO
+## Testing Standards 👨‍🔬
 
+Tests are the **backbone** of any quality. It is an essential element in determining if the software if *progressing* in the **right direction**, instead of unexpected bugs being introduced or previous features being broken with new additions (**regression**).
+
+This project uses [pytest](https://docs.pytest.org/en/7.4.x/) for running both [unit tests](https://en.wikipedia.org/wiki/Unit_testing) and [integration tests](https://en.wikipedia.org/wiki/Integration_testing) setup for the existing functionalities. The **unit tests** can be found in the `tests/` folder and the **integration tests** can be found in `integration/` folder.
+
+```
+pip install pytest pytest-watch pytest-cov
+```
+
+### How to run 🧪
+
+In order to run the entire test suite, run the following command.
+
+```
+pytest
+```
+
+All the tests in the configured directories will get invoked.
+
+If all the tests pass and you see a green status, you're good to go with the changes. Otherwise, fix the problems until all tests pass.
+
+To rerun the tests on each save, we use the [pytest-watch](https://pypi.org/project/pytest-watch/) package.
+```
+ptw
+```
+
+### Coverage 📈
+
+To check for the total coverage of codebase in the correspoding test run, we use the [pytest-cov](https://pypi.org/project/pytest-cov/) extension like so,
+```
+make coverage
+```
+
+or to be more explicit
+
+```
+pytest --cov=src
+```
+
+**Important:** Make sure to add both unit tests and integration tests for any new functionality you implement, necessary to prove that your features are working.
+
+## Custom Defined Scripts 💻
+
+Most of the utilities discussed above can be run via the custom scripts defined for this project in the **Makefile** at the root of the project. If you don't have the `make` utility already installed, you can use [Chocolatey](https://chocolatey.org/) to install in on **Windows**.
+
+```
+choco install make
+```
+
+### Makefile
+
+To run any of the defined scripts, Run
+```
+make <script_name>
+```
+
+These are the scripts defined for the project.
+
+```Makefile
+install:
+	pip install -r requirements.txt
+
+format:
+	black .
+
+lint:
+	pylint src/
+
+test:
+	pytest
+
+run-failed-tests:
+	pytest --last-failed 
+
+test-watch:
+	ptw
+
+coverage:
+	pytest --cov=src
+```
+
+For example, to run `black` formatter on the project, run
+
+```
+make format
+```
+
+<!-- ### Commit Messages -->
 
 
 <!-- ## Join The Project Team -->

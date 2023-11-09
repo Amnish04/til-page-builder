@@ -8,19 +8,20 @@ class HeadingItem:
     """Represents a heading item in a TOC (Table of contents)"""
 
     # Class Variables
-    CHILDREN_DEFAULT_VALUE = []
+    DEFAULT_CHILDREN_VALUE = []
+    DEFAULT_HEADING_VALUE = ""
 
-    def __init__(self, value: str, children: List["HeadingItem"] = None):
+    def __init__(self, value: str = None, children: List["HeadingItem"] = None):
         """Constructor
 
         :param id: id of the corresponding html element
         :param value: inner html of the corresponding html element
         :param children: child nodes
         """
-        self.id = HeadingItem.generate_heading_id(value)
-        self.value = value
+        self.value = HeadingItem.DEFAULT_HEADING_VALUE if value is None else value
+        self.id = HeadingItem.generate_heading_id(self.value)
         self.children = (
-            HeadingItem.CHILDREN_DEFAULT_VALUE if children is None else children
+            HeadingItem.DEFAULT_CHILDREN_VALUE if children is None else children
         )
 
     @staticmethod
@@ -40,6 +41,10 @@ class HeadingItem:
         return sha512_hash.hexdigest()
 
     def get_html(self) -> str:
+        """
+        Return corresponding html for the object
+        """
+
         return f"""
             <li>
                 <a href='#{self.id}'>{self.value}</a>

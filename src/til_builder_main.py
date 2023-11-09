@@ -16,16 +16,18 @@ class App:
         self.cl_args = CommandlineParser().get_args()
         self.html_builder = HtmlBuilder()
 
-    def run(self):
+    def run(self, input_path=None, test_context=False):
         """Entry point for the app"""
 
         # Check for exit commands (Return if any branch is entered)
         if self.cl_args.version:
             print(f"{version.__app_name__}: {version.__version__}")
-            sys.exit(0)
+            if not test_context:
+                sys.exit(0)
 
         # Execute parse functions
-        input_path = self.cl_args.input_path
+        input_path = self.cl_args.input_path if input_path is None else input_path
+
         if input_path is None:
             print(
                 "You need to specify a file or folder of text files that need to be converted!"
@@ -81,7 +83,8 @@ class App:
             sys.exit(-1)
 
         # Everything went well
-        sys.exit(0)
+        if not test_context:
+            sys.exit(0)
 
 
 if __name__ == "__main__":
