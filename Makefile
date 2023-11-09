@@ -17,4 +17,4 @@ test-watch:
 	ptw
 
 coverage:
-		pytest --cov=src
+	pytest --cov=src
