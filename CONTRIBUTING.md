@@ -19,10 +19,8 @@ All types of contributions are encouraged and valued. See the [Table of Contents
 - [Reporting Bugs](#reporting-bugs)
 - [Suggesting Enhancements](#suggesting-enhancements)
 - [Your First Code Contribution](#your-first-code-contribution)
-<!-- - [Improving The Documentation](#improving-the-documentation) -->
 - [Styleguides](#styleguides)
-<!-- - [Commit Messages](#commit-messages) -->
-<!-- - [Join The Project Team](#join-the-project-team) -->
+- [Testing Standards](#testing-standards)
 
 
 
@@ -259,9 +257,9 @@ Please adhere to the following guidelines when using Pylint:
 
 If you're using VSCode, all you need to do is install the official `pylint` extension by Microsoft. All the necessary configurations are already set up in the project workspace settings.
 
-## Testing Standards 👨‍🔬
+## Testing Standards
 
-Tests are the **backbone** of any quality. It is an essential element in determining if the software if *progressing* in the **right direction**, instead of unexpected bugs being introduced or previous features being broken with new additions (**regression**).
+👨‍🔬 Tests are the **backbone** of any quality. It is an essential element in determining if the software if *progressing* in the **right direction**, instead of unexpected bugs being introduced or previous features being broken with new additions (**regression**).
 
 This project uses [pytest](https://docs.pytest.org/en/7.4.x/) for running both [unit tests](https://en.wikipedia.org/wiki/Unit_testing) and [integration tests](https://en.wikipedia.org/wiki/Integration_testing) setup for the existing functionalities. The **unit tests** can be found in the `tests/` folder and the **integration tests** can be found in `integration/` folder.
 
