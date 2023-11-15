@@ -16,6 +16,7 @@ class CommandlineParser:
             cls._instance._initialize()
         return cls._instance
 
+    # pylint: disable=attribute-defined-outside-init
     def _initialize(self):
         # Create an ArgumentParser object
         self._parser = argparse.ArgumentParser(
@@ -23,6 +24,8 @@ class CommandlineParser:
             description="Converts text files for TIL posts to HTML files for publishing on the web.",
         )
         self._setup_arguments()
+
+    # pylint: disable=attribute-defined-outside-init
 
     def get_args(self):
         return self._cl_args
@@ -96,9 +99,11 @@ class CommandlineParser:
                 except tomli.TOMLDecodeError:
                     print("Error: Unable to decode configuration file contents")
                     sys.exit(1)
+                # pylint: disable=bare-except
                 except:
                     print("Error: Invalid configuration file")
                     sys.exit(1)
+                # pylint: enable=bare-except
 
             for key, value in toml_vals.items():
                 setattr(
