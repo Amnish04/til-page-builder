@@ -1,5 +1,7 @@
 # til-page-builder
 
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black) [![linting: pylint](https://img.shields.io/badge/linting-pylint-yellowgreen)](https://github.com/pylint-dev/pylint)
+
 A command-line tool for authoring "Today I Learned" posts in Markdown, which can be converted to HTML for publishing on the web.
 
 <div align="center" style="width: 100%">
@@ -126,8 +128,6 @@ python src/til_builder_main.py examples/til-yattag.md
 
 
 ## Contributing
-
-[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black) [![linting: pylint](https://img.shields.io/badge/linting-pylint-yellowgreen)](https://github.com/pylint-dev/pylint)
 
 Please read the [CONTRIBUTING.md](https://github.com/Amnish04/til-page-builder/blob/static-analysis-tooling/CONTRIBUTING.md) file for all the details required to get you started as an official contributor for this project.
 
