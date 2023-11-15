@@ -7,7 +7,7 @@ from utils.helper_functions import has_txt_extension, has_md_extension
 from utils.commandline import CommandlineParser
 import builder.line_queries as line_queries
 
-from builder.toc_generator.index import TOC, HeadingItem
+from builder.toc_generator.toc import TOC, HeadingItem
 
 
 class HtmlBuilder:

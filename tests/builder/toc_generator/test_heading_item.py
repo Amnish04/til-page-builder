@@ -80,3 +80,33 @@ class TestHeadingItem:
                 HeadingItem.DEFAULT_HEADING_VALUE
             )
             assert heading.children == HeadingItem.DEFAULT_CHILDREN_VALUE
+
+    class TestHeadingItemGetHtml:
+        """
+        Tests for 'HeadingItem' class get_html method
+        """
+
+        def test_return_type(self):
+            """
+            get_html returns a string
+            """
+            sample_heading_value = "This is a sample heading"
+            heading = HeadingItem(sample_heading_value)
+
+            assert isinstance(heading.get_html(), str)
+
+        def test_return_value(self):
+            """
+            get_html returns an html 'li' element, and a nested anchor with expected properties
+            """
+            sample_heading_value = "This is a sample heading"
+            heading = HeadingItem(sample_heading_value)
+
+            assert (
+                heading.get_html()
+                == f"""
+            <li>
+                <a href='#{heading.id}'>{heading.value}</a>
+            </li>
+            """
+            )
