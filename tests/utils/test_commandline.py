@@ -23,6 +23,10 @@ class TestCommandline:
             ]
 
             # Apply the patch to sys.argv to mimic command-line arguments
+
+            # Save the original sys.argv
+            original_argv = sys.argv.copy()
+
             with patch.object(sys, "argv", ["commandline.py"] + arguments):
                 # Create an instance of the CommandlineParser
                 parser = CommandlineParser()
@@ -35,3 +39,6 @@ class TestCommandline:
                 assert args.input_path == "input.md"
                 assert args.output == "./dist/til"
                 assert args.version
+
+            # After the block, revert sys.argv to its original state
+            sys.argv = original_argv
