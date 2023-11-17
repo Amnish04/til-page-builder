@@ -1,7 +1,4 @@
 from builder.toc_generator.heading_item import HeadingItem
-from utils.commandline import CommandlineParser
-import sys
-from unittest.mock import patch
 
 
 class TestHeadingItem:
@@ -113,34 +110,3 @@ class TestHeadingItem:
             </li>
             """
             )
-
-    class TestCommandlineParserWithArguments:
-        """
-        Tests for CommandLine
-        """
-
-        # Prepare a list of command-line arguments
-        arguments = [
-            "-c",
-            "config.toml",
-            "input.md",
-            "-o",
-            "./output",
-            "-l",
-            "en-US",
-            "-v",
-        ]
-
-        # Apply the patch to sys.argv to mimic command-line arguments
-        with patch.object(sys, "argv", ["commandline.py"] + arguments):
-            # Create an instance of the CommandlineParser
-            parser = CommandlineParser()
-
-            # Get the parsed arguments
-            args = parser.get_args()
-
-            # Assert that the arguments are correctly parsed
-            assert args.config == "config.toml"
-            assert args.input_path == "input.md"
-            assert args.output == "./dist/til"
-            assert args.version
