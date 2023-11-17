@@ -1,6 +1,6 @@
-from utils.commandline import CommandlineParser
 import sys
 from unittest.mock import patch
+from utils.commandline import CommandlineParser
 
 
 class TestCommandline:
