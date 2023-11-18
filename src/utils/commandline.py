@@ -4,28 +4,16 @@ import tomli
 
 
 class CommandlineParser:
-    _instance = None
-
-    def __new__(cls):
-        """Restrict the instantiation class to a single instance
-
-        :return: A global point of access to the single instance
+    def __init__(self):
         """
-        if cls._instance is None:
-            cls._instance = super(CommandlineParser, cls).__new__(cls)
-            cls._instance._initialize()
-        return cls._instance
-
-    # pylint: disable=attribute-defined-outside-init
-    def _initialize(self):
+        Setup and parse commandline arguments
+        """
         # Create an ArgumentParser object
         self._parser = argparse.ArgumentParser(
             prog="TIL Page Builder",
             description="Converts text files for TIL posts to HTML files for publishing on the web.",
         )
         self._setup_arguments()
-
-    # pylint: disable=attribute-defined-outside-init
 
     def get_args(self):
         return self._cl_args
