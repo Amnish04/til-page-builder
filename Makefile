@@ -5,7 +5,7 @@ format:
 	black .
 
 lint:
-	pylint src/ tests/ integration/
+	pylint src/til_page_builder tests/ integration/
 
 test:
 	pytest

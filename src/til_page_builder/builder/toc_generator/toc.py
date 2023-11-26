@@ -1,5 +1,5 @@
 from typing import List
-from builder.toc_generator.heading_item import HeadingItem
+from til_page_builder.builder.toc_generator.heading_item import HeadingItem
 
 
 class TOC:
