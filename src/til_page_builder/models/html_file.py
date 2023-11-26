@@ -1,7 +1,7 @@
 import os
 import shutil
 from typing import List
-from utils.commandline import CommandlineParser
+from til_page_builder.utils.commandline import CommandlineParser
 
 
 class HtmlFile:

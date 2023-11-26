@@ -3,12 +3,11 @@
 import os
 import sys
 import pathlib
-from utils.helper_functions import has_txt_extension, has_md_extension
-from utils.commandline import CommandlineParser
-from models.html_file import HtmlFile
-import version
-
-from builder.html_builder import HtmlBuilder
+import til_page_builder.version as version
+from til_page_builder.builder.html_builder import HtmlBuilder
+from til_page_builder.utils.helper_functions import has_txt_extension, has_md_extension
+from til_page_builder.utils.commandline import CommandlineParser
+from til_page_builder.models.html_file import HtmlFile
 
 
 class App:

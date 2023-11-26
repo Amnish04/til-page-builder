@@ -1,6 +1,6 @@
 import sys
 from unittest.mock import patch
-from utils.commandline import CommandlineParser
+from til_page_builder.utils.commandline import CommandlineParser
 
 
 class TestCommandline:

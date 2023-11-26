@@ -1,13 +1,13 @@
 import os
 import re
 from yattag import Doc, indentation
-from models.html_file import HtmlFile
+from til_page_builder.models.html_file import HtmlFile
 
-from utils.helper_functions import has_txt_extension, has_md_extension
-from utils.commandline import CommandlineParser
-import builder.line_queries as line_queries
+from til_page_builder.utils.helper_functions import has_txt_extension, has_md_extension
+from til_page_builder.utils.commandline import CommandlineParser
+import til_page_builder.builder.line_queries as line_queries
 
-from builder.toc_generator.toc import TOC, HeadingItem
+from til_page_builder.builder.toc_generator.toc import TOC, HeadingItem
 
 
 class HtmlBuilder:

@@ -2,7 +2,7 @@
 
 import os
 from snapshots import snapshots
-from til_builder_main import App
+from til_page_builder.til_builder_main import App
 
 
 class TestIntegration:
