@@ -27,24 +27,32 @@ Converts **text** or **markdown** files to **html** files that can be rendered a
 
 The driver file for this tool is located at `src/til_builder_main.py`. This is the file that needs to be executed for to perform all kinds of actions that the tool supports.
 
-There are several ways in which you can use this tool.
+### Installing the Package ⚙️
+
+**Users** would like to install the project from [TestPyPi](https://test.pypi.org/) using
+```
+py -m pip install --index-url https://test.pypi.org/simple/ --no-deps til-page-builder
+```
+
+Once it is successfully installed, you need to use the following command to use the tool.
+```
+py -m til_page_builder.til_builder_main <file/folder path> [OPTIONS]
+```
 
 ### Default Behavior
 
 At its core, the tool takes either a text file or a folder containing files as a positional argument and then generates corresponding html files to `./til` folder by default.
 
-**Note:** The following commands assume that you are currently located in the src folder that contains the `til_builder_main.py` driver file.
-
 1. Converting a file
 
 ```
-python til_builder_main.py file.txt
+py -m til_page_builder.til_builder_main file.txt
 ```
 
 2. Converting all files within a folder
 
 ```
-python til_builder_main.py <folder path>
+py -m til_page_builder.til_builder_main <folder path>
 ```
 
 ### Flags/Options for custom behavior
@@ -53,7 +61,7 @@ Here are some examples demonstrating usage of custom flags supported by the tool
 
 1. `-v` or `--version` : Displays the program name and the version that is in use.
 ```
-python  .\src\til_builder_main.py --version
+py -m til_page_builder.til_builder_main --version
 ```
 
 Output:
@@ -65,7 +73,7 @@ TIL Page Builder: 0.1.0
 2. `-h` or `--help` : Displays a help message that describes usage of all kinds of commandline arguments supported.
 
 ```
-python  .\src\til_builder_main.py --help
+py -m til_page_builder.til_builder_main --help
 ```
 
 Output:
@@ -88,7 +96,7 @@ options:
 
 For example, in order to generate the html files in a directory `./dist/html_files`
 ```
-python til_builder_main.py --output ./dist/html_files
+py -m til_page_builder.til_builder_main --output ./dist/html_files
 ```
 4. `-c` or `--config`: Allows specification of a [TOML](https://toml.io/en/) configuration file containing all required options for the program.
 
@@ -98,7 +106,7 @@ output = "./build"
 lang = "fr"
 ```
 ```
-python til_builder_main.py myfile.txt --config config.toml
+py -m til_page_builder.til_builder_main myfile.txt --config config.toml
 ```
 
 Will set the output directory and language of the HTML files  instead of having to use `--output` and `--lang`. Using `-c` or `--config` will override any other config flags provided.
@@ -114,7 +122,7 @@ This example demonstrates the app behavior for a `markdown` file.
 
 Run the command for conversion.
 ```
-python src/til_builder_main.py examples/til-yattag.md
+py -m til_page_builder.til_builder_main examples/til-yattag.md
 ```
 
 **Generated HTML Page**
