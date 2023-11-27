@@ -31,7 +31,7 @@ The driver file for this tool is located at `src/til_builder_main.py`. This is t
 
 **Users** would like to install the project from [TestPyPi](https://test.pypi.org/) using
 ```
-py -m pip install --index-url https://test.pypi.org/simple/ --no-deps til-page-builder
+py -m pip install --index-url https://test.pypi.org/simple/ til-page-builder
 ```
 
 Once it is successfully installed, you need to use the following command to use the tool.
