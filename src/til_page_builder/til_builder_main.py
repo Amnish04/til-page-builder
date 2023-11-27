@@ -86,6 +86,10 @@ class App:
             sys.exit(0)
 
 
-if __name__ == "__main__":
+def main():
     app = App()
     app.run()
+
+
+if __name__ == "__main__":
+    main()
