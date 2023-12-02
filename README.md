@@ -126,14 +126,12 @@ py -m til_page_builder.til_builder_main examples/til-yattag.md
 ```
 
 **Generated HTML Page**
-![Generated Page](https://github.com/Amnish04/til-page-builder/assets/78865303/7dcdec5f-5a9c-4d2d-88f0-12b3285e93da)
+![Generated Page](https://github.com/Amnish04/til-page-builder/assets/78865303/5f29d438-7e4e-4a97-9a68-33e039ec94f8)
 
 ***
 
 ### Table of Contents Demo
-
-![TOC Demo](https://github.com/Amnish04/til-page-builder/assets/78865303/c5a141aa-2ac9-4405-b696-b5ca526492a4)
-
+![TOCDemo](https://github.com/Amnish04/til-page-builder/assets/78865303/663c3cf1-4fb7-4491-9446-da395e8d4994)
 
 ## Contributing
 
