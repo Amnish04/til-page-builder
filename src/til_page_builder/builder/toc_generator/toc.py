@@ -1,5 +1,5 @@
 from typing import List
-from til_page_builder.builder.toc_generator.heading_item import HeadingItem
+from builder.toc_generator.heading_item import HeadingItem
 
 
 class TOC:
@@ -11,10 +11,12 @@ class TOC:
 
     def get_html(self):
         return f"""
-            <h2>Table of Contents</h2>
-            <ul>
-                {''.join(list(map(lambda item: item.get_html(), self.items)))}
-            </ul>
+            <div class="table-of-contents">
+                <h2>Table of Contents</h2>
+                <ul>
+                    {''.join(list(map(lambda item: item.get_html(), self.items)))}
+                </ul>
+            </div>
             """
 
     def clear(self):

@@ -1,19 +1,20 @@
 import os
 import re
 from yattag import Doc, indentation
-from til_page_builder.models.html_file import HtmlFile
+from models.html_file import HtmlFile
 
-from til_page_builder.utils.helper_functions import has_txt_extension, has_md_extension
-from til_page_builder.utils.commandline import CommandlineParser
-import til_page_builder.builder.line_queries as line_queries
+from utils.helper_functions import has_txt_extension, has_md_extension
+from utils.commandline import CommandlineParser
+import builder.line_queries as line_queries
 
-from til_page_builder.builder.toc_generator.toc import TOC, HeadingItem
+from builder.toc_generator.toc import TOC, HeadingItem
 
 
 class HtmlBuilder:
     """Functionality to build and generate the html documents"""
 
     TOC_PLACEHOLDER = '<div id="toc-placeholder"></div>'
+    THEME_URL = "./themes/theme.css"
 
     def __init__(self):
         self._cl_args = CommandlineParser().get_args()
@@ -86,6 +87,7 @@ class HtmlBuilder:
                     name="viewport",
                     content="width=device-width, initial-scale=1",
                 )
+                doc.stag("link", rel="stylesheet", href=HtmlBuilder.THEME_URL)
 
             with tag("body"):
                 # Add an h1 if the title is present
@@ -95,8 +97,7 @@ class HtmlBuilder:
                         line_cursor_position += 3
 
                 # Placeholder for TOC
-                with tag("div", id="toc-placeholder"):
-                    doc.asis()
+                doc.asis(HtmlBuilder.TOC_PLACEHOLDER)
 
                 # Continue with the remaining content
                 while line_cursor_position < len(lines):

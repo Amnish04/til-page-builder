@@ -3,11 +3,12 @@
 import os
 import sys
 import pathlib
-import til_page_builder.version as version
-from til_page_builder.builder.html_builder import HtmlBuilder
-from til_page_builder.utils.helper_functions import has_txt_extension, has_md_extension
-from til_page_builder.utils.commandline import CommandlineParser
-from til_page_builder.models.html_file import HtmlFile
+import version
+import shutil
+from builder.html_builder import HtmlBuilder
+from utils.helper_functions import has_txt_extension, has_md_extension
+from utils.commandline import CommandlineParser
+from models.html_file import HtmlFile
 
 
 class App:
@@ -63,6 +64,10 @@ class App:
                 )
 
             HtmlFile.generate_files(files_to_be_generated)
+
+            # Copy theme/styles into the generated bundle
+            shutil.copytree("./themes", f"{self.cl_args.output}/themes")
+            shutil.copytree("./assets", f"{self.cl_args.output}/assets")
 
         elif os.path.isfile(input_path):
             # Check if a text file is supplied
