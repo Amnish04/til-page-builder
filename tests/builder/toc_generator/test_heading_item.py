@@ -1,4 +1,4 @@
-from til_page_builder.builder.toc_generator.heading_item import HeadingItem
+from builder.toc_generator.heading_item import HeadingItem
 
 
 class TestHeadingItem:

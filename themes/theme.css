@@ -1,0 +1,44 @@
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@300;700&family=Mulish:wght@1000&display=swap');
+
+*, *::after, *::after {
+    box-sizing: border-box;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: Mulish, Helvetica, Arial, sans-serif;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(to top right, rgba(100, 1, 100, 0.075), rgba(200, 200, 200, 0.075));
+    font-family: Merriweather, Verdana, Arial, serif;
+
+    width: min(1000px, 50%);
+    min-height: 100vh;
+    margin: auto;
+}
+
+
+/* Table of Contents */
+
+.table-of-contents ul {
+    list-style-type: none;
+    padding-left: 20px; /* Adjust the padding to leave space for the image */
+}
+
+.table-of-contents ul li {
+    background: url('../assets/bob_the_builder.png') no-repeat left center;
+    background-size: 16px;
+    padding-left: 30px; /* Adjust the padding to position the text after the image */
+    list-style-type: none;
+}
+
+@media screen and (min-width: 1000px) {
+    .table-of-contents {
+        position: fixed;
+        right: 0;
+        top: 5vh;
+        padding: 2rem;
+    }
+}
