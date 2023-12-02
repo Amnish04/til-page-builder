@@ -3,8 +3,8 @@
 import os
 import sys
 import pathlib
-import version
 import shutil
+import version
 from builder.html_builder import HtmlBuilder
 from utils.helper_functions import has_txt_extension, has_md_extension
 from utils.commandline import CommandlineParser
