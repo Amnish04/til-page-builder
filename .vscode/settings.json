@@ -4,7 +4,7 @@
         "editor.formatOnSave": true,
     },
     "editor.codeActionsOnSave": {
-        "source.organizeImports.ruff": true
+        "source.organizeImports.ruff": "always"
     },
     "pylint.ignorePatterns": [
         "version.py"
