@@ -14,7 +14,7 @@ class TOC:
             <div class="table-of-contents">
                 <h2>Table of Contents</h2>
                 <ul>
-                    {''.join(list(map(lambda item: item.get_html(), self.items)))}
+                    {"".join(list(map(lambda item: item.get_html(), self.items)))}
                 </ul>
             </div>
             """
