@@ -11,7 +11,7 @@ setup(
     install_requires=requirements,
     entry_points={
         "console_scripts": [
-            "til_page_builder=til_page_builder.til_builder_main:main",  # Adjust 'module_name' and 'main' accordingly
+            "til_page_builder=til_page_builder.cli:main",  # Adjust 'module_name' and 'main' accordingly
         ],
     },
     python_requires=">=3.8",

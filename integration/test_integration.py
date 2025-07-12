@@ -1,8 +1,8 @@
-""""This module is responsible for integration testing of this application"""
+""" "This module is responsible for integration testing of this application"""
 
 import os
 from snapshots import snapshots
-from til_builder_main import App
+from cli import App
 
 
 class TestIntegration:

@@ -8,7 +8,7 @@
             "name": "Python: Default Launch",
             "type": "python",
             "request": "launch",
-            "program": "C:/Seneca/Semester5/OSD600/til-page-builder/src/til_builder_main.py",
+            "program": "C:/Seneca/Semester5/OSD600/til-page-builder/src/cli.py",
             "console": "integratedTerminal",
             "justMyCode": true,
             "args": [
