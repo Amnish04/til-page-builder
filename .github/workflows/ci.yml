@@ -29,15 +29,15 @@ jobs:
       with:
         python-version: ${{ env.PYTHON_VERSION }}
 
-    - name: Install rye and dependencies
+    - name: Install rye
       run: |
         curl -sSf https://rye.astral.sh/get | RYE_VERSION=${{ env.RYE_VERSION }} RYE_INSTALL_OPTION="--yes" bash
-        rye sync
-      env:
-        CI: true
     
     - name: Add Rye to PATH
       run: echo "$HOME/.rye/shims" >> $GITHUB_PATH
+
+    - name: Install dependencies
+      run: rye sync
 
     - name: Lint with pylint
       run: |
