@@ -32,6 +32,9 @@ jobs:
       run: |
         curl -sSf https://rye.astral.sh/get | bash
         rye sync
+      env:
+        CI: true
+
 
     - name: Lint with pylint
       run: |
