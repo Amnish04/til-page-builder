@@ -16,6 +16,10 @@ class App:
         self.cl_args = CommandlineParser().get_args()
         self.html_builder = HtmlBuilder()
 
+    def _bundle_static_assets(self):
+        shutil.copytree("./themes", f"{self.cl_args.output}/themes")
+        shutil.copytree("./assets", f"{self.cl_args.output}/assets")
+
     def run(self, input_path=None, test_context=False):
         """Entry point for the app"""
 
@@ -66,8 +70,7 @@ class App:
             HtmlFile.generate_files(files_to_be_generated)
 
             # Copy theme/styles into the generated bundle
-            shutil.copytree("./themes", f"{self.cl_args.output}/themes")
-            shutil.copytree("./assets", f"{self.cl_args.output}/assets")
+            self._bundle_static_assets()
 
         elif os.path.isfile(input_path):
             # Check if a text file is supplied
@@ -75,6 +78,7 @@ class App:
                 HtmlFile.generate_files(
                     [self.html_builder.generate_html_file_object(input_path)]
                 )
+                self._bundle_static_assets()
             else:
                 print(
                     f"Only text and markdown files are supported. {input_path} is not a text or markdown file!"
